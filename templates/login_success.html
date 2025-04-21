@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Login Successful!</h2>
+<p>Redirecting to your dashboard...</p>
+
+<!-- Container with multiple planes -->
+<div style="position: relative; height: 200px; overflow: hidden;">
+  <!-- Each plane has a different animation-delay so they fly at different times -->
+  <div class="plane-animation" style="top: 20%; animation-delay: 0s;"></div>
+  <div class="plane-animation" style="top: 60%; animation-delay: 0.5s;"></div>
+  <div class="plane-animation" style="top: 40%; animation-delay: 1s;"></div>
+</div>
+
+<!-- Auto-redirect after 3 seconds -->
+<script>
+  setTimeout(() => {
+    window.location.href = "{{ url_for('index') }}";
+  }, 3000);
+</script>
+{% endblock %}

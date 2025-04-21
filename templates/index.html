@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Bulk Email Sender</h2>
+
+<!-- 1) Provide a big text area for the user to type the message body. 
+     The plane flies across when you click "Send Emails." 
+-->
+<form method="POST" onsubmit="launchPlane()">
+  <label for="message_body">Message Body (will prepend "Hi {name},"):</label><br>
+  <textarea id="message_body" name="message_body" rows="5" cols="60"></textarea><br><br>
+
+  <button type="submit" name="action" value="send_emails">Send Emails</button>
+</form>
+
+<hr>
+
+<!-- 2) Add Recipients via CSV -->
+<h3>Add Recipients via CSV</h3>
+<form method="POST" enctype="multipart/form-data" 
+      onsubmit="triggerUnboxAnimation('csvBox')">
+  <!-- The box that does an "unbox" animation -->
+  <div id="csvBox" class="unbox"></div>
+
+  <input type="file" name="csv_file" accept=".csv">
+  <button type="submit" name="action" value="add_csv">Add CSV to Queue</button>
+</form>
+
+<hr>
+
+<!-- 3) Single Recipient -->
+<h3>Add a Single Recipient</h3>
+<form method="POST" onsubmit="triggerUnboxAnimation('manualBox')">
+  <div id="manualBox" class="unbox"></div>
+  <label>Name:</label>
+  <input type="text" name="manual_name" required>
+  <label>Email:</label>
+  <input type="email" name="manual_email" required>
+  <button type="submit" name="action" value="add_manual">Add to Queue</button>
+</form>
+
+<hr>
+
+<!-- 4) Show the Current Queue -->
+<h3>Current Queue:</h3>
+{% if queue %}
+  <ul>
+    {% for (name, email) in queue %}
+      <li>{{ name }} &lt;{{ email }}&gt;</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No recipients in the queue yet.</p>
+{% endif %}
+{% endblock %}

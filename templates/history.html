@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Email History</h2>
+{% if history %}
+  <ul>
+    {% for (name, email) in history %}
+      <li>{{ name }} &lt;{{ email }}&gt;</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No emails sent yet.</p>
+{% endif %}
+{% endblock %}
